@@ -1,0 +1,85 @@
+﻿<!--
+Copyright (c) 2024 David A. Frischknecht
+
+SPDX-License-Identifier: Apache-2.0 -->
+
+<Window
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:StartupItemsManager" x:Class="StartupItemsManager.MainWindow"
+		mc:Ignorable="d" Loaded="MainWindow_Loaded"
+		Title="Startup Items Manager" Height="450" Width="800">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="12" />
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="12" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="12" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="12" />
+		</Grid.RowDefinitions>
+		<TabControl Grid.Column="1" Grid.Row="1">
+			<TabItem Header="Current User">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="5" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+					<GroupBox Grid.Column="0" Header="Registry - Run:">
+						<DataGrid DataContext="{Binding RegCurrentUserRunItems, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"
+						          ItemsSource="{Binding RegCurrentUserRunItems, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"
+						          AutoGeneratingColumn="DgRegCurrentUserRun_AutoGeneratingColumn" CanUserReorderColumns="False" SelectionMode="Single" CanUserResizeRows="False" HeadersVisibility="Column" />
+					</GroupBox>
+					<GroupBox Grid.Column="2" Header="Start Menu - Startup">
+						<DataGrid DataContext="{Binding StartMenuCurrentUserStartupItems, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"
+						          ItemsSource="{Binding StartMenuCurrentUserStartupItems, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"
+						          CanUserReorderColumns="False" SelectionMode="Single" CanUserResizeRows="False" HeadersVisibility="Column"/>
+					</GroupBox>
+				</Grid>
+			</TabItem>
+			<TabItem>
+				<TabItem.Header>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="5" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
+						<Image Grid.Column="0" Source="{Binding ShieldImage, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" />
+						<TextBlock Grid.Column="2">All Users</TextBlock>
+					</Grid>
+				</TabItem.Header>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="5" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+				</Grid>
+			</TabItem>
+		</TabControl>
+		<Grid x:Name="m_grdLaunchAsAdmin" Grid.Column="1" Grid.Row="2">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="5" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<Button Grid.Row="1" HorizontalAlignment="Left" Padding="15,5,15,5" Click="BtnLaunchAsAdmin_Click">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="5" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<Image Grid.Column="0" Source="{Binding ShieldImage, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" />
+					<TextBlock Grid.Column="2"><Run Text="Launch as Admin"/></TextBlock>
+				</Grid>
+			</Button>
+		</Grid>
+	</Grid>
+</Window>
